@@ -6,6 +6,6 @@ export const PROMOTIONS = [
     label: 'New',
     price: '19.99',
     featured: true,
-    description: 'Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just $19.99 per person'
+    description: 'Предлагая аппетитные комбинации с выбором из пяти различных салатов, шесть заманчивых закусок, шесть основных закусок и пять отборных десертов. Свободно текущие газированные и безалкогольные напитки. Всего за $ 19,99 на человека'
   }
 ];

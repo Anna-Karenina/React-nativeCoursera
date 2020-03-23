@@ -6,7 +6,7 @@ export const LEADERS = [
     designation: 'Chief Epicurious Officer',
     abbr: 'CEO',
     featured: false,
-    description: "Our CEO, Peter, credits his hardworking East Asian immigrant parents who undertook the arduous journey to the shores of America with the intention of giving their children the best future. His mother's wizardy in the kitchen whipping up the tastiest dishes with whatever is available inexpensively at the supermarket, was his first inspiration to create the fusion cuisines for which The Frying Pan became well known. He brings his zeal for fusion cuisines to this restaurant, pioneering cross-cultural culinary connections."
+    description: "Наш генеральный директор Питер благодарит своих трудолюбивых родителей-иммигрантов из Восточной Азии, которые предприняли трудное путешествие к берегам Америки с намерением дать своим детям лучшее будущее. Волшебство его матери на кухне, взбивающее самые вкусные блюда из всего, что доступно недорого в супермаркете, было его первым вдохновением для создания кухни фьюжн, благодаря которой «Сковорода» стала широко известной. В этот ресторан он вкладывает рвение в кухню фьюжн, создавая межкультурные кулинарные связи.."
   },
   {
     id: 1,
@@ -15,7 +15,7 @@ export const LEADERS = [
     designation: 'Chief Food Officer',
     abbr: 'CFO',
       featured: false,
-    description: 'Our CFO, Danny, as he is affectionately referred to by his colleagues, comes from a long established family tradition in farming and produce. His experiences growing up on a farm in the Australian outback gave him great appreciation for varieties of food sources. As he puts it in his own words, Everything that runs, wins, and everything that stays, pays!'
+    description: 'Наш финансовый директор Дэнни, как ласково называют его коллеги, имеет давнюю семейную традицию в сельском хозяйстве и производстве. Его опыт выращивания на ферме в австралийской глубинке дал ему большую оценку разнообразных источников пищи. Как он говорит своими словами: все, что бежит, побеждает, и все, что остается, платит!'
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ export const LEADERS = [
     designation: 'Chief Taste Officer',
     abbr: 'CTO',
       featured: false,
-    description: 'Blessed with the most discerning gustatory sense, Agumbe, our CFO, personally ensures that every dish that we serve meets his exacting tastes. Our chefs dread the tongue lashing that ensues if their dish does not meet his exacting standards. He lives by his motto, You click only if you survive my lick.'
+    description: 'Наш финансовый директор Agumbe, обладающий самым взыскательным вкусом, лично гарантирует, что каждое блюдо, которое мы подаем, соответствует его взыскательным вкусам. Наши повара боятся порки языка, которая возникает, если их блюдо не соответствует его строгим стандартам. Он живет под своим девизом, Вы нажмете, только если вы переживете мою лизать.'
   },
   {
     id: 3,
@@ -33,6 +33,6 @@ export const LEADERS = [
     designation: 'Executive Chef',
     abbr: 'EC',
     featured: true,
-    description: 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
+    description: 'Отмеченный наградами трехзвездочный шеф-повар Мишлен с обширным международным опытом, тесно сотрудничая с кем-то в кулинарном мире, он специализируется на создании аппетитных индо-итальянских блюд фьюжн. Он говорит: «Собери кухню двух сумасшедших культур, и ты получишь хит! Амма Миа!'
   }
 ];
