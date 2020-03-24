@@ -19,7 +19,7 @@ function Contact({navigation}) {
   const [contact,] = React.useState([...data.contact])
     return(
     <Card 
-      containerStyle ={{marginTop : 50}}
+      containerStyle ={{marginTop : 20}}
       dividerStyle = {{opacity: 0}}
       title="Contact Information" >
       {
@@ -37,7 +37,4 @@ function Contact({navigation}) {
 Contact['navigationOptions'] = screenProps => ({
   title: 'Contact info'
 })
-// Contact.navigationOptions = () => ({
-//   title
-// });
 export default Contact;
