@@ -2,7 +2,8 @@ import React from 'react';
 import {  Text,FlatList, View, ScrollView} from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { OURHISTORY } from './../shared/ourhistory'
-import { LEADERS } from '../shared/leaders';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseurl';
 
 
 const  History = ({ourHistory}) =>{
@@ -27,8 +28,7 @@ class AboutUs extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      OurHistory: OURHISTORY,
-      leaders: LEADERS
+      OurHistory: OURHISTORY
     }
   }
   static navigationOptions = {
@@ -42,7 +42,7 @@ class AboutUs extends React.Component{
          title={item.name}
          subtitle={item.description}
          hideChevron={true}
-         leftAvatar={{ source: require('./images/alberto.png')}}
+         leftAvatar={{ source: {uri:baseUrl + item.image }}}
        />
       );
     };
@@ -54,13 +54,18 @@ class AboutUs extends React.Component{
         title={this.state.OurHistory[1].title}
        >
         <FlatList 
-          data={this.state.leaders}
+          data={this.props.leaders.leaders}
           renderItem={renderMenuItem}
+          keyExtractor={item => item.id.toString()}
           />
        </Card>
       </ScrollView>
     )
   }
 }
-
-export default AboutUs;
+const mapstate2props = state =>{
+  return { 
+    leaders : state.leaders
+  }
+}
+export default connect(mapstate2props)(AboutUs);
