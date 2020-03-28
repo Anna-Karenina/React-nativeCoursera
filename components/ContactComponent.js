@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
-
+import * as Animatable from 'react-native-animatable'
 
 const data = {
   contact:
@@ -18,20 +18,22 @@ const data = {
 function Contact({navigation}) {
   const [contact,] = React.useState([...data.contact])
     return(
-    <Card 
-      containerStyle ={{marginTop : 20}}
-      dividerStyle = {{opacity: 0}}
-      title="Contact Information" >
-      {
-        contact.map((D, i) => {
-          return (
-            <View key={i} >
-              <Text style = {{padding: 13}}>{D.key}</Text>
-            </View>
-          )
-        })
-      }
-    </Card>
+      <Animatable.View animation='fadeInDown' duration ={ 2000 } delay ={1000}>
+        <Card 
+          containerStyle ={{marginTop : 20}}
+          dividerStyle = {{opacity: 0}}
+          title="Contact Information" >
+          {
+            contact.map((D, i) => {
+              return (
+                <View key={i} >
+                  <Text style = {{padding: 13}}>{D.key}</Text>
+                </View>
+              )
+            })
+          }
+        </Card>
+    </Animatable.View>
     )
 }
 Contact['navigationOptions'] = screenProps => ({

@@ -159,7 +159,7 @@ export const deleteFavorite = (dishId) => ({
 export const postFavorite = (dishId)  => (dispatch) => {
   setTimeout(() => {
       dispatch(addFavorite(dishId));
-  }, 3000);
+  }, 1000);
 };
 export const postComment = (data)  => (dispatch) => {
   setTimeout(() => {

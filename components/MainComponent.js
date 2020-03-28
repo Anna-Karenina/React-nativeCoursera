@@ -12,6 +12,7 @@ import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchComments, fetchDishes, fetchPromotions, fetchLeaders } from '../redux/ActionsCreators';
 
+
 const MenuNavigator = createStackNavigator({
   Menu: { 
     screen: Menu,

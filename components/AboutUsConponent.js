@@ -5,7 +5,7 @@ import { OURHISTORY } from './../shared/ourhistory'
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseurl';
 import { Loading } from './LoadingComponent';
-
+import * as Animatable from 'react-native-animatable'
 
 const  History = ({ourHistory}) =>{
   return(
@@ -62,29 +62,33 @@ class AboutUs extends React.Component{
     } else if (this.props.leaders.errMess){
       return (
         <ScrollView>
-          <History ourHistory={this.state.OurHistory} />
-          <Card 
-          containerStyle ={{marginTop : 10}}
-          title={this.state.OurHistory[1].title}
-          >
-            <Text>{this.props.leaders.errMess}</Text>
-          </Card>
-      </ScrollView>
+          <Animatable.View animation='fadeInDown' duration ={ 2000 } delay ={1000}>
+            <History ourHistory={this.state.OurHistory} />
+            <Card 
+            containerStyle ={{marginTop : 10}}
+            title={this.state.OurHistory[1].title}
+            >
+              <Text>{this.props.leaders.errMess}</Text>
+            </Card>
+          </Animatable.View>
+        </ScrollView>
       )
     } else {
       return (
         <ScrollView>
-         <History ourHistory={this.state.OurHistory} />
-         <Card 
-          containerStyle ={{marginTop : 10}}
-          title={this.state.OurHistory[1].title}
-         >
-          <FlatList 
-            data={this.props.leaders.leaders}
-            renderItem={renderMenuItem}
-            keyExtractor={item => item.id.toString()}
-            />
-         </Card>
+          <Animatable.View animation='fadeInDown' duration ={ 2000 } delay ={1000}>
+            <History ourHistory={this.state.OurHistory} />
+            <Card 
+              containerStyle ={{marginTop : 10}}
+              title={this.state.OurHistory[1].title}
+            >
+              <FlatList 
+                data={this.props.leaders.leaders}
+                renderItem={renderMenuItem}
+                keyExtractor={item => item.id.toString()}
+                />
+            </Card>
+         </Animatable.View>
         </ScrollView>
       )
     }

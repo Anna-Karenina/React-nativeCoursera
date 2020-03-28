@@ -1,7 +1,7 @@
 export const PROMOTIONS = [
   {
     id: 0,
-    name: 'Weekend Grand Buffet',
+    name: 'Шведский стол на выходные',
     image: 'images/buffet.png',
     label: 'New',
     price: '19.99',

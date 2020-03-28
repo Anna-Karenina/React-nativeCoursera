@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListItem } from 'react-native-elements';
 import { Loading } from './LoadingComponent';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import Swipeout from 'react-native-swipeout'
 import { deleteFavorite } from '../redux/ActionsCreators';
+import * as Animatable from 'react-native-animatable'
 
 class Favorites extends Component{
 
@@ -19,19 +20,40 @@ class Favorites extends Component{
         {
             text: 'Delete', 
             type: 'delete',
-            onPress: () => this.props.deleteFavorite(item.id)
+            onPress: () =>
+            {
+              Alert.alert(
+                'Delete Favorite?',
+                `Вы уверенны что хотите удалить блюдо ${item.name}`,
+                [
+                  {
+                    text: 'Отмена', 
+                    onPress: ()=> console.log( `${item.name} Not Deleted!` ),
+                    style: 'cancel'
+                  },
+                  {
+                    text: "ok",
+                    onPress: ()=> this.props.deleteFavorite(item.id)
+                  }
+                ],
+                {cancelable: false}
+              )
+            }
+             
         }
     ];
       return(
        <Swipeout right ={rightButton} autoClose={true}>
-        <ListItem
-          key ={ index }
-          title = {item.name}
-          subtitle = {item.description}
-          hideChevron={true}
-          onPress={()=> navigate('Dishdetail', {dishId: item.id})}
-          leftAvatar ={{source:{ uri: './images/vadonut.png'} }}
-          />
+          <Animatable.View animation='fadeInRightBig' duration ={ 2000 } >
+          <ListItem
+            key ={ index }
+            title = {item.name}
+            subtitle = {item.description}
+            hideChevron={true}
+            onPress={()=> navigate('Dishdetail', {dishId: item.id})}
+            leftAvatar ={{source:{ uri: './images/vadonut.png'} }}
+            />
+          </Animatable.View>
        </Swipeout>
        
       )

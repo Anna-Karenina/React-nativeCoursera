@@ -5,30 +5,33 @@ import { connect } from 'react-redux'
 import { baseUrl } from '../shared/baseurl'
 import { postFavorite, postComment } from '../redux/ActionsCreators'
 import DishComment from './DishCommentComponent'
+import * as Animatable from 'react-native-animatable'
 
 function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
   if(dish !=null){
     return(
-      <Card 
-        featuredTitle={dish.name}
-        image={{uri: baseUrl + dish.image}}>
-          <Text style={{margin: 10}}>
-            {dish.description}
-          </Text>
-          <View style = {{flexDirection: 'row', justifyContent: "center", alignContent: "center",alignItems:"center", flex: 1}}>
-          <Icon 
-            raised
-            reverse 
-            name={favorite ?  "heart" : 'heart-o'}
-            type='font-awesome'
-            color = '#f50'
-            onPress= { ()=>  favorite ? console.log("allredy favorite") : onPress() } /> 
-          <DishComment 
-            postComment = {postComment}
-            dishId={dish.id}
-            commetsLength={commetsLength}/>
-          </View>
-      </Card>
+      <Animatable.View animation='fadeInDown' duration ={ 2000 } delay ={1000}>
+        <Card 
+          featuredTitle={dish.name}
+          image={{uri: baseUrl + dish.image}}>
+            <Text style={{margin: 10}}>
+              {dish.description}
+            </Text>
+            <View style = {{flexDirection: 'row', justifyContent: "center", alignContent: "center",alignItems:"center", flex: 1}}>
+            <Icon 
+              raised
+              reverse 
+              name={favorite ?  "heart" : 'heart-o'}
+              type='font-awesome'
+              color = '#f50'
+              onPress= { ()=>  favorite ? console.log("allredy favorite") : onPress() } /> 
+            <DishComment 
+              postComment = {postComment}
+              dishId={dish.id}
+              commetsLength={commetsLength}/>
+            </View>
+        </Card>
+      </Animatable.View>
     )
   }
   else{ 
@@ -39,18 +42,20 @@ function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
 const RenderComments = ({comments})=>{
   const renderCommentItem = ({item , i}) => {
     return(
-      <View key ={i} style = {{margin:10}}>
-        <Text style ={{fontSize:14}}>{item.comment} </Text>
-        <Text style ={{fontSize:12,margin: 8}}>
-          <Rating 
-            type='star'
-            ratingCount={item.rating}
-            imageSize={10}
-            readonly
-          />
-        </Text>
-        <Text style ={{fontSize:12}}>{`--${item.author}, ${item.date}`}</Text>
-      </View>
+      <Animatable.View animation='fadeInUp' duration ={ 2000 } delay ={1000}>
+        <View key ={i} style = {{margin:10}}>
+          <Text style ={{fontSize:14}}>{item.comment} </Text>
+          <Text style ={{fontSize:12,margin: 8}}>
+            <Rating 
+              type='star'
+              ratingCount={item.rating}
+              imageSize={10}
+              readonly
+            />
+          </Text>
+          <Text style ={{fontSize:12}}>{`--${item.author}, ${item.date}`}</Text>
+        </View>
+      </Animatable.View>
     )
   }
   return(
