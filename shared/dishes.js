@@ -2,7 +2,7 @@ export const DISHES =
     [
         {
         id: 0,
-        name:'Uthappizza',
+        name:'Утха пицца',
         image: 'images/uthappizza.png',
         category: 'mains',
         label:'Hot',
@@ -12,7 +12,7 @@ export const DISHES =
         },
         {
         id: 1,
-        name:'Zucchipakoda',
+        name:'Цуккини Пакора',
         image: 'images/zucchipakoda.png',
         category: 'appetizer',
         label:'',
@@ -22,7 +22,7 @@ export const DISHES =
         },
         {
         id: 2,
-        name:'Vadonut',
+        name:'Этот пончик',
         image: 'images/vadonut.png',
         category: 'appetizer',
         label:'New',
@@ -32,7 +32,7 @@ export const DISHES =
         },
         {
         id: 3,
-        name:'ElaiCheese Cake',
+        name:'Элай сыр Cake',
         image: 'images/elaicheesecake.png',
         category: 'dessert',
         label:'',

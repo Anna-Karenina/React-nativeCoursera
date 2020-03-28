@@ -5,6 +5,8 @@ import Dishdetail from './DishdetailComponent';
 import { View, Platform, Image, StyleSheet, ScrollView,Text } from 'react-native';
 import Contact from './ContactComponent';
 import AboutUs from './AboutUsConponent';
+import Favorite from './FavoriteComponent';
+import Reserved from './ReservationComponent';
 import { createStackNavigator,createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -34,6 +36,21 @@ const MenuNavigator = createStackNavigator({
 
 const HomeNavigator = createStackNavigator({
   Home: { screen: Home },
+}, 
+{
+  navigationOptions:({navigation}) => ({
+      headerStyle: {
+          backgroundColor: "#512DA8"
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          color: "#fff"            
+      },
+      headerLeft: <Icon containerStyle ={{marginLeft: 10}} name='menu' size={30} color='white' onPress = {()=> navigation.toggleDrawer()}/>
+  })
+})
+const FavoriteNavigator = createStackNavigator({
+  Favorite: { screen: Favorite },
 }, 
 {
   navigationOptions:({navigation}) => ({
@@ -79,7 +96,21 @@ const AboutUsNavigator = createStackNavigator({
       headerLeft: <Icon containerStyle ={{marginLeft: 10}} name='menu' size={30} color='white' onPress = {()=> navigation.toggleDrawer()}/>
   })
 })
-
+const ReservedTableNavigator = createStackNavigator({
+  Reserved: { screen: Reserved },
+}, 
+{
+  navigationOptions:({navigation}) => ( {
+      headerStyle: {
+          backgroundColor: "#512DA8"
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+          color: "#fff"            
+      },
+      headerLeft: <Icon containerStyle ={{marginLeft: 10}} name='menu' size={30} color='white' onPress = {()=> navigation.toggleDrawer()}/>
+  })
+})
 
 const CustomDrawerContentComponent = (props) =>(
   <ScrollView>
@@ -132,6 +163,22 @@ const MainNavigator = createDrawerNavigator({
      drawerIcon: ({ tintColor }) => (<Icon name ='address-card' type='font-awesome' size= {22} color={tintColor}/>)
     }
   },
+  Favorite:{
+   screen:FavoriteNavigator,
+   navigationOptions:{
+     title: 'Favorite',
+     drawlerLable: 'Favorite',
+     drawerIcon: ({ tintColor }) => (<Icon name ='heart' type='font-awesome' size= {22} color={tintColor}/>)
+    }
+  },
+  Reserved:{
+    screen:ReservedTableNavigator,
+   navigationOptions:{
+     title: 'Reserved',
+     drawlerLable: 'Contact',
+     drawerIcon: ({ tintColor }) => (<Icon name ='cutlery' type='font-awesome' size= {22} color={tintColor}/>)
+    }
+  },   
 },{
   drawlerBackgroundCOlor: '#D1C4E9',
   contentComponent:CustomDrawerContentComponent
@@ -148,7 +195,8 @@ class Main extends Component {
 
   render() {
     return (
-      <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
+      // <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
+       <View style={{flex:1, paddingTop:0}}> 
             <MainNavigator />
         </View>
     )
@@ -180,10 +228,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    dishes: state.dishes,
-    comments: state.comments,
-    promotions: state.promotions,
-    leaders: state.leaders
   }
 }
 const mapdis2props = dispatch =>({

@@ -4,6 +4,7 @@ import { Card, ListItem } from 'react-native-elements';
 import { OURHISTORY } from './../shared/ourhistory'
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseurl';
+import { Loading } from './LoadingComponent';
 
 
 const  History = ({ourHistory}) =>{
@@ -42,25 +43,51 @@ class AboutUs extends React.Component{
          title={item.name}
          subtitle={item.description}
          hideChevron={true}
-         leftAvatar={{ source: {uri:baseUrl + item.image }}}
+         leftAvatar={{source: {uri: baseUrl + item.image}}}
        />
       );
     };
-     return (
-      <ScrollView>
-       <History ourHistory={this.state.OurHistory} />
-       <Card 
-        containerStyle ={{marginTop : 10}}
-        title={this.state.OurHistory[1].title}
-       >
-        <FlatList 
-          data={this.props.leaders.leaders}
-          renderItem={renderMenuItem}
-          keyExtractor={item => item.id.toString()}
-          />
-       </Card>
+    if(this.props.leaders.isLoading ){
+      return (
+        <ScrollView>
+          <History ourHistory={this.state.OurHistory} />
+          <Card 
+          containerStyle ={{marginTop : 10}}
+          title={this.state.OurHistory[1].title}
+          >
+            <Loading />
+          </Card>
       </ScrollView>
-    )
+      )
+    } else if (this.props.leaders.errMess){
+      return (
+        <ScrollView>
+          <History ourHistory={this.state.OurHistory} />
+          <Card 
+          containerStyle ={{marginTop : 10}}
+          title={this.state.OurHistory[1].title}
+          >
+            <Text>{this.props.leaders.errMess}</Text>
+          </Card>
+      </ScrollView>
+      )
+    } else {
+      return (
+        <ScrollView>
+         <History ourHistory={this.state.OurHistory} />
+         <Card 
+          containerStyle ={{marginTop : 10}}
+          title={this.state.OurHistory[1].title}
+         >
+          <FlatList 
+            data={this.props.leaders.leaders}
+            renderItem={renderMenuItem}
+            keyExtractor={item => item.id.toString()}
+            />
+         </Card>
+        </ScrollView>
+      )
+    }
   }
 }
 const mapstate2props = state =>{
