@@ -14,10 +14,15 @@ function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
     }
     else false
   }
+  
+  handleViewRef = ref => this.view = ref;
+
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (e, getstureState ) =>{
       return true
     },
+    onPanResponderGrant: () => {this.view.rubberBand(1000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));},
+
     onPanResponderEnd: (e, getstureState) =>{
       if(recognizeDrag(getstureState))
         Alert.alert(
@@ -45,6 +50,7 @@ function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
         animation='fadeInDown' 
         duration ={ 2000 } 
         delay ={1000}
+        ref={this.handleViewRef}
         {...panResponder.panHandlers}
       >
         <Card 
@@ -131,7 +137,6 @@ class DishDetail extends React.Component {
             onPress={()=> this.markFavorite(dishId)}
             postComment={this.props.postComment}
             commetsLength = {commetsLength}
-            markFavorite = { this.markFavorite}
             />
           <RenderComments 
             comments = {this.props.comments.comments.filter( (comment) => comment.dishId === dishId )} />
