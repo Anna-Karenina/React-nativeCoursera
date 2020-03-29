@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, FlatList } from 'react-native'
+import { View, Text, ScrollView, FlatList, PanResponder, Alert } from 'react-native'
 import { Card, Icon, Rating } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { baseUrl } from '../shared/baseurl'
@@ -8,9 +8,45 @@ import DishComment from './DishCommentComponent'
 import * as Animatable from 'react-native-animatable'
 
 function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
+  const recognizeDrag = ({ moveX, moveY, dx, dy }) =>{
+    if(dx < -150){
+      return true
+    }
+    else false
+  }
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: (e, getstureState ) =>{
+      return true
+    },
+    onPanResponderEnd: (e, getstureState) =>{
+      if(recognizeDrag(getstureState))
+        Alert.alert(
+          'Добавить в избраное',
+          `Вы уверены что хотите добавить ${dish.name} в избраное`,
+          [
+            {
+              text:'Отмена',
+              onPress: ()=> console.log('действие отменено'),
+              style: 'cancel'
+            },
+            {
+              text:'ОК',
+              onPress: () => favorite ? console.log("allredy favorite") : onPress(),
+              style: "default"
+            }
+          ], {cancelable: false}
+        )
+      return true
+    }
+  })
   if(dish !=null){
     return(
-      <Animatable.View animation='fadeInDown' duration ={ 2000 } delay ={1000}>
+      <Animatable.View 
+        animation='fadeInDown' 
+        duration ={ 2000 } 
+        delay ={1000}
+        {...panResponder.panHandlers}
+      >
         <Card 
           featuredTitle={dish.name}
           image={{uri: baseUrl + dish.image}}>
@@ -95,6 +131,7 @@ class DishDetail extends React.Component {
             onPress={()=> this.markFavorite(dishId)}
             postComment={this.props.postComment}
             commetsLength = {commetsLength}
+            markFavorite = { this.markFavorite}
             />
           <RenderComments 
             comments = {this.props.comments.comments.filter( (comment) => comment.dishId === dishId )} />
