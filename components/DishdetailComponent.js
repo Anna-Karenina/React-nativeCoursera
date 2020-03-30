@@ -7,14 +7,20 @@ import { postFavorite, postComment } from '../redux/ActionsCreators'
 import DishComment from './DishCommentComponent'
 import * as Animatable from 'react-native-animatable'
 
-function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
+function RenderDish({dish, favorite, onPress,postComment, commetsLength, showModal ,setShowModal}){
   const recognizeDrag = ({ moveX, moveY, dx, dy }) =>{
     if(dx < -150){
       return true
     }
     else false
   }
-  
+  const recognizeComment = ({ moveX, moveY, dx, dy }) =>{
+    if(dx > 200){
+      return true
+    }
+    else false
+  }
+
   handleViewRef = ref => this.view = ref;
 
   const panResponder = PanResponder.create({
@@ -24,7 +30,7 @@ function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
     onPanResponderGrant: () => {this.view.rubberBand(1000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));},
 
     onPanResponderEnd: (e, getstureState) =>{
-      if(recognizeDrag(getstureState))
+      if(recognizeDrag(getstureState)){
         Alert.alert(
           'Добавить в избраное',
           `Вы уверены что хотите добавить ${dish.name} в избраное`,
@@ -41,6 +47,11 @@ function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
             }
           ], {cancelable: false}
         )
+      return true
+      }
+      else if(recognizeComment(getstureState)){
+        setShowModal(!showModal)
+      }
       return true
     }
   })
@@ -70,7 +81,8 @@ function RenderDish({dish, favorite, onPress,postComment, commetsLength}){
             <DishComment 
               postComment = {postComment}
               dishId={dish.id}
-              commetsLength={commetsLength}/>
+              commetsLength={commetsLength}
+              showModal = {showModal}/>
             </View>
         </Card>
       </Animatable.View>
@@ -112,39 +124,34 @@ const RenderComments = ({comments})=>{
 }
 
 
-class DishDetail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      favorites: []
-    };
-  }
-  markFavorite(dishId) {
-    this.props.postFavorite(dishId);
-}
-  static navigationOptions = {
-      title: 'Dish Details'
-  };
+const  DishDetail = ({postFavorite, navigation, comments,dishes, favorites, postComment}) => {
+  const [showModal, setShowModal] = React.useState(false)
 
-  render() {
-      const dishId = this.props.navigation.getParam('dishId','');
-      const commetsLength = this.props.comments.comments.length
+  function markFavorite(dishId){
+    postFavorite(dishId);
+  }
+  const dishId = navigation.getParam('dishId','');
+  const commetsLength = comments.comments.length
       return(
         <ScrollView>
           <RenderDish 
-            dish={this.props.dishes.dishes[+dishId]}  
-            favorite={this.props.favorites.some(el => el === dishId)}
-            onPress={()=> this.markFavorite(dishId)}
-            postComment={this.props.postComment}
+            dish={dishes.dishes[+dishId]}  
+            favorite={favorites.some(el => el === dishId)}
+            onPress={()=> markFavorite(dishId)}
+            postComment={postComment}
             commetsLength = {commetsLength}
+            showModal={showModal}
+            setShowModal= {setShowModal}
             />
           <RenderComments 
-            comments = {this.props.comments.comments.filter( (comment) => comment.dishId === dishId )} />
+            comments = {comments.comments.filter( (comment) => comment.dishId === dishId )} />
         </ScrollView>
       );
-  }
-}
+ }
 
+ DishDetail['navigationOptions'] = screenProps => ({
+  title: 'Dish Details'
+})
 const mapstate2props = state =>{
   return { 
     dishes : state.dishes,

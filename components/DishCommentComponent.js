@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Modal, View, Text, StyleSheet } from 'react-native'
+import { ScrollView, Modal, View, StyleSheet } from 'react-native'
 import { Icon, Input, Rating, Button } from 'react-native-elements'
 
 class DishComment extends React.Component{
@@ -9,7 +9,12 @@ class DishComment extends React.Component{
       rating: 0,
       author: '',
       comment: '',
-      showModal: false
+      showModal: this.props.showModal
+    }
+  }
+  componentDidUpdate(){
+    if(this.props.showModal !== this.state.showModal){
+      this.setState({showModal:  this.props.showModal})
     }
   }
   handleComment =()=>{
@@ -43,7 +48,7 @@ class DishComment extends React.Component{
           name='pencil'
           type='font-awesome'
           color = '#512DA8'
-          onPress = {() => this.handleComment()} 
+          onPress = {() => this.toggleModal()} 
         />
         <Modal
           animationType={'slide'}
